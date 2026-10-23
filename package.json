@@ -1,0 +1,9 @@
+{
+  "name": "just-us-arcade",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A tiny real-time arcade for two, ready for GitHub Pages.",
+  "scripts": { "start": "node scripts/serve.mjs", "test": "node --test tests/*.test.js" },
+  "engines": { "node": ">=20" }
+}

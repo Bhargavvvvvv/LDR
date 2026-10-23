@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fbf6ef">
+  <meta name="description" content="Different places, same play date. A cozy little arcade for you and your favorite person.">
+  <title>Just Us — A little arcade for two</title>
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script defer src="./vendor/peerjs.min.js"></script>
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="Just Us home"><span class="brand-mark">j<span>u</span></span>just us<span class="brand-dot">.</span></a>
+      <span class="header-note">a little arcade for two</span>
+      <button class="text-button how-button" id="how-button"><span aria-hidden="true">ⓘ</span> How to play</button>
+    </header>
+    <main id="main">
+      <section id="home" class="home">
+        <div class="hero">
+          <div class="hero-copy">
+            <div class="eyebrow"><span class="tiny-heart" aria-hidden="true">♥</span> TWO PLAYERS. ONE HAPPY PLACE.</div>
+            <h1>A little competition.<br>A lot of <span class="script-word">us.<svg viewBox="0 0 180 20" aria-hidden="true"><path d="M4 13 Q84 -2 174 9 M26 18 Q99 7 153 15"/></svg></span></h1>
+            <p class="hero-description">For the “one more round” kind of love.<br>Pick a game, invite your person, and make a little time for each other.</p>
+            <div class="hero-details"><span><i class="status-dot"></i> Play together, wherever</span><span class="detail-divider"></span><span>No accounts. Just you two.</span></div>
+            <div class="hero-doodle" aria-hidden="true"><svg viewBox="0 0 330 120"><path class="doodle-line" d="M18 64 C70 16 114 120 165 67 S245 18 289 49 M277 32 L291 51 L267 56"/><g transform="translate(116 15) rotate(-15)"><path class="doodle-heart" d="M0 9 C-13 -8 -31 2 -23 18 L0 40 L23 18 C31 2 13 -8 0 9Z"/></g><path class="doodle-star" d="M224 80 L228 90 L238 94 L228 98 L224 109 L220 98 L209 94 L220 90 Z"/></svg><span>distance has nothing on us</span></div>
+          </div>
+          <aside class="room-card" aria-labelledby="room-heading">
+            <div class="room-sticker" aria-hidden="true">you + me</div>
+            <span class="room-icon" aria-hidden="true">♡</span>
+            <h2 id="room-heading">Your next play date</h2>
+            <p>Two screens. A little friendly rivalry.</p>
+            <label for="player-name">What should we call you?</label>
+            <input id="player-name" autocomplete="nickname" maxlength="20" placeholder="Your name" aria-describedby="name-hint">
+            <small id="name-hint">Your person will see this in the room.</small>
+            <button id="create-room" class="button primary">Create a room <span aria-hidden="true">↗</span></button>
+            <div class="or-divider"><span>or join your person</span></div>
+            <form id="join-form" class="join-form"><label for="room-code" class="sr-only">Room code</label><input id="room-code" maxlength="10" placeholder="ROOM CODE" autocomplete="off" autocapitalize="characters" spellcheck="false"><button id="join-room" class="button secondary" type="submit">Join <span aria-hidden="true">→</span></button></form>
+            <p id="connection-message" class="connection-message" role="status" aria-live="polite"></p>
+            <button id="local-play" class="local-button">On the same couch? <span>Play on one device →</span></button>
+          </aside>
+        </div>
+        <section class="games-section" aria-labelledby="games-heading">
+          <div class="section-heading"><div><span class="eyebrow subtle">SMALL GAMES, GOOD TIMES</span><h2 id="games-heading">Pick your kind of fun<span class="pink-dot">.</span></h2></div><span class="handwritten">loser owes a hug ♡</span></div>
+          <div id="home-games" class="game-grid"></div>
+          <div class="bottom-note"><span aria-hidden="true">✧</span> A quick break. A long-distance date. An excuse to stay a little longer.</div>
+        </section>
+      </section>
+      <section id="room" class="room-view" hidden aria-labelledby="room-title">
+        <div class="room-topline"><span class="eyebrow"><i class="status-dot" id="room-dot"></i><span id="room-connection">CONNECTED</span></span><button id="leave-room" class="text-button">Leave room ↗</button></div>
+        <div class="room-heading-row"><div><h1 id="room-title">Our little play date<span class="pink-dot">.</span></h1><p id="room-subtitle">A little friendly competition looks good on you two.</p></div><button id="copy-invite" class="invite-chip"><span>ROOM CODE</span><strong id="display-code"></strong><span class="copy-caption">Copy invite ↗</span></button></div>
+        <div class="players" id="players"></div>
+        <div id="room-notice" class="room-notice" role="status"></div>
+        <div id="lobby"><div class="section-heading"><h2>What are we playing?</h2><span id="lobby-instruction">Pick a game to start your date.</span></div><div id="room-games" class="game-grid"></div></div>
+        <section id="game-panel" class="game-panel" hidden>
+          <div class="game-toolbar"><button id="back-games" class="text-button">← All games</button><span id="game-round" class="eyebrow"></span></div>
+          <div class="game-heading"><span id="active-game-tag" class="eyebrow"></span><h2 id="active-game-title"></h2><p id="game-rules"></p></div>
+          <p id="turn-message" class="turn-message" role="status" aria-live="polite"></p>
+          <div id="game-board"></div>
+          <div class="round-actions"><button id="rematch" class="button primary" hidden>One more round ↗</button><span id="rematch-wait" hidden>Waiting for the host to start another round…</span></div>
+        </section>
+        <div class="reaction-bar"><span>A little love between rounds</span><div><button data-reaction="heart" aria-label="Send a heart">♡</button><button data-reaction="clap" aria-label="Send applause">👏</button><button data-reaction="laugh" aria-label="Send a laugh">😄</button><button data-reaction="kiss" aria-label="Send a kiss">😘</button></div></div>
+      </section>
+    </main>
+    <footer><span>Made for your favorite person<span class="pink-dot"> ♥</span></span><span>Less scrolling. More us.</span></footer>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="reaction-stage" class="reaction-stage" aria-hidden="true"></div>
+  <dialog id="help-dialog"><button class="dialog-close" id="close-help" aria-label="Close instructions">×</button><span class="eyebrow">A DATE IN THREE LITTLE STEPS</span><h2>Meet you in the game.</h2><ol><li><strong>Make it yours.</strong> Enter your name and create a room.</li><li><strong>Invite your person.</strong> Send them the invite link, or ask them to enter your room code.</li><li><strong>Let the games begin.</strong> The host picks a game. Both screens update as you play.</li></ol><p>Keep both tabs open. Scores last for this room only. If you disconnect, create a new room to start fresh.</p><p>Live play uses a free connection service. If a room cannot connect, try another network or turn off your VPN. You can always play together on one device.</p><button id="help-done" class="button primary">Sounds like a date ♡</button></dialog>
+</body>
+</html>
